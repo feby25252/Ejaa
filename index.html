@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Happy Birthday, Sayang! ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;font-family:'DM Sans',sans-serif}
+body{overflow-x:hidden;background:#fff6fa;color:#6e4055}
+button{font-family:inherit}
+
+:root{
+ --pink:#e98aaa;
+ --deep:#a94e72;
+ --soft:#ffd9e6;
+ --cream:#fffafd;
+ --text:#75475b;
+}
+
+/* ---------- opening ---------- */
+.opening{
+ position:fixed;inset:0;z-index:100;
+ display:flex;align-items:center;justify-content:center;
+ overflow:hidden;text-align:center;
+ background:
+   radial-gradient(circle at 50% 35%,rgba(255,255,255,.98) 0 8%,transparent 32%),
+   radial-gradient(circle at 15% 85%,#ffdce8 0,transparent 28%),
+   radial-gradient(circle at 85% 15%,#ffe8f0 0,transparent 30%),
+   linear-gradient(145deg,#fffafd,#ffe9f1);
+ transition:opacity 1s ease,visibility 1s ease;
+}
+.opening.hide{opacity:0;visibility:hidden;pointer-events:none}
+.opening-inner{position:relative;width:min(100%,650px);padding:35px 22px}
+.mini{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c77b98;font-weight:700;margin-bottom:16px;opacity:0;animation:up .8s .2s forwards}
+.greeting{
+ font-family:'Great Vibes',cursive;color:#b75a7d;
+ font-size:clamp(45px,10vw,76px);line-height:1.05;
+ opacity:0;animation:up .9s .35s forwards;
+ text-shadow:0 8px 30px rgba(183,90,125,.13);
+}
+.date{
+ font-family:'Cormorant Garamond',serif;font-size:24px;letter-spacing:5px;
+ color:#9d627a;margin-top:7px;opacity:0;animation:up .8s .5s forwards;
+}
+.envelope-wrap{
+ margin:38px auto 25px;width:290px;height:190px;position:relative;
+ cursor:pointer;perspective:900px;opacity:0;animation:envelopeIn 1s .65s forwards;
+ filter:drop-shadow(0 25px 25px rgba(174,79,114,.18));
+}
+.envelope{
+ position:absolute;inset:0;border-radius:7px;background:linear-gradient(145deg,#f4a9c2,#dc789e);
+ box-shadow:inset 0 0 0 1px #ffffff55;
+ transform-style:preserve-3d;
+}
+.envelope:before{
+ content:"";position:absolute;inset:0;
+ clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+ background:linear-gradient(145deg,#f7b5ca,#d86f98);
+ border-radius:7px;
+}
+.flap{
+ position:absolute;top:0;left:0;width:100%;height:112px;
+ background:linear-gradient(145deg,#ffc7d9,#e789a9);
+ clip-path:polygon(0 0,100% 0,50% 100%);
+ transform-origin:top center;z-index:4;
+ transition:transform 1s cubic-bezier(.2,.8,.2,1);
+}
+.letter{
+ position:absolute;width:240px;height:150px;left:25px;top:16px;
+ background:#fffdfd;border-radius:5px;z-index:2;
+ box-shadow:0 8px 18px rgba(80,30,50,.12);
+ transition:transform 1s cubic-bezier(.2,.8,.2,1);
+ display:flex;align-items:center;justify-content:center;
+}
+.letter span{font-family:'Great Vibes';font-size:31px;color:#c26384}
+.seal{
+ position:absolute;z-index:5;left:50%;top:102px;transform:translate(-50%,-50%);
+ width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+ color:white;background:#bd5d82;border:3px solid #ffdbe7;
+ font-size:20px;box-shadow:0 5px 12px #8f3f5e33;
+ transition:.7s;
+}
+.tap{
+ color:#986077;font-size:14px;font-weight:600;letter-spacing:.8px;
+ opacity:0;animation:up .8s 1s forwards;
+}
+.tap b{color:#c45f84}
+.music-hint{font-size:11px;color:#b88498;margin-top:13px;opacity:.8}
+
+.opening.open .flap{transform:rotateX(180deg)}
+.opening.open .letter{transform:translateY(-78px)}
+.opening.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.opening.open .envelope-wrap{animation:envelopeBreath .7s forwards}
+
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes envelopeIn{from{opacity:0;transform:translateY(35px) scale(.8)}to{opacity:1;transform:none}}
+@keyframes envelopeBreath{50%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* ---------- floating decorations ---------- */
+.floating{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.heart{
+ position:absolute;bottom:-50px;color:#ef9fba;opacity:.45;
+ animation:rise linear infinite;
+}
+@keyframes rise{
+ 0%{transform:translateY(0) rotate(0deg);opacity:0}
+ 10%{opacity:.45}90%{opacity:.25}
+ 100%{transform:translateY(-115vh) rotate(30deg);opacity:0}
+}
+
+/* ---------- main ---------- */
+.main{opacity:0;visibility:hidden;transition:opacity 1s .35s}
+.main.show{opacity:1;visibility:visible}
+.hero{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;
+ position:relative;text-align:center;padding:80px 20px;
+ background:
+ radial-gradient(circle at 50% 25%,#fff 0 7%,transparent 32%),
+ linear-gradient(160deg,#fffafd,#fff0f5 60%,#ffe2ec);
+ overflow:hidden;
+}
+.hero:after{
+ content:"";position:absolute;width:650px;height:650px;border:1px solid #efb7ca;
+ border-radius:50%;opacity:.35;animation:spin 28s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-content{position:relative;z-index:3}
+.hero .small{font-size:12px;letter-spacing:4px;color:#c36b8b;font-weight:700}
+.hero h1{
+ font-family:'Great Vibes';font-weight:400;color:#b45278;
+ font-size:clamp(65px,13vw,120px);line-height:.95;margin:20px 0 10px;
+}
+.hero h2{
+ font-family:'Cormorant Garamond';font-style:italic;font-size:30px;color:#8e5a70;
+}
+.hero-date{
+ display:inline-block;margin-top:25px;padding:9px 19px;border:1px solid #e9b3c6;
+ border-radius:99px;color:#ad6680;background:#ffffff99;font-size:12px;letter-spacing:3px;
+}
+.scroll{margin-top:55px;font-size:11px;letter-spacing:2px;color:#b97b91}
+.scroll:after{content:"↓";display:block;font-size:22px;margin-top:7px;animation:bounce 1.5s infinite}
+@keyframes bounce{50%{transform:translateY(7px)}}
+
+/* ---------- sections ---------- */
+.section{padding:105px 20px}
+.container{max-width:920px;margin:auto}
+.center{text-align:center}
+.kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c76c8c;font-weight:700}
+.title{font-family:'Cormorant Garamond';font-size:52px;color:#76465b;margin:8px 0 13px}
+.sub{color:#9a7181;line-height:1.8;max-width:600px;margin:auto}
+
+.letter-card{
+ margin-top:45px;background:rgba(255,255,255,.9);border:1px solid #f3d6e0;
+ border-radius:32px;padding:45px;box-shadow:0 25px 70px #bb66831a;
+ position:relative;overflow:hidden;line-height:1.95;
+}
+.letter-card:before{content:"♡";position:absolute;right:25px;top:-20px;font-size:130px;color:#ffe5ed;font-family:'Great Vibes'}
+.letter-card p{position:relative;margin-bottom:16px}
+.sign{font-family:'Great Vibes';font-size:34px;color:#bd5e82;text-align:right;margin-top:25px}
+
+.memories{background:#fff0f5}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+.photo{
+ position:relative;aspect-ratio:1;border-radius:25px;overflow:hidden;
+ background:linear-gradient(145deg,#ffd5e3,#fff);
+ border:5px solid white;box-shadow:0 15px 35px #a84d7117;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ transition:.4s;
+}
+.photo:hover{transform:translateY(-7px) rotate(-1deg);box-shadow:0 22px 45px #a84d7125}
+.photo:nth-child(2n):hover{transform:translateY(-7px) rotate(1deg)}
+.photo .ph{color:#b87891;font-size:13px;line-height:1.6}
+.photo .ph i{display:block;font-family:'Great Vibes';font-style:normal;font-size:48px;color:#d77d9e}
+
+.timeline{margin-top:45px;display:grid;gap:20px}
+.item{
+ display:grid;grid-template-columns:75px 1fr;gap:20px;align-items:center;
+}
+.icon{
+ width:75px;height:75px;border-radius:23px;background:#ffe1eb;display:grid;place-items:center;
+ font-size:25px;box-shadow:0 10px 20px #c46a8617;
+}
+.item article{
+ padding:22px 25px;border:1px solid #f2dbe4;background:white;border-radius:22px;
+}
+.item h3{font-family:'Cormorant Garamond';font-size:28px;color:#7d4b61}
+.item p{color:#987183;line-height:1.7;font-size:14px;margin-top:3px}
+
+.wishes{
+ background:linear-gradient(145deg,#cf6e93,#aa4e72);color:white;text-align:center;position:relative;overflow:hidden;
+}
+.wishes:before,.wishes:after{
+ content:"♡";position:absolute;font-family:'Great Vibes';font-size:300px;color:#ffffff0b;
+}
+.wishes:before{left:-100px;top:-90px}.wishes:after{right:-100px;bottom:-180px}
+.wishes .kicker,.wishes .title,.wishes .sub{color:white}
+.wish{
+ max-width:730px;margin:40px auto 0;padding:42px 30px;border:1px solid #ffffff3d;
+ background:#ffffff12;backdrop-filter:blur(8px);border-radius:30px;position:relative;z-index:1;
+}
+.wish p{font-family:'Cormorant Garamond';font-size:31px;line-height:1.45;font-style:italic}
+
+.final{text-align:center;padding:115px 20px;background:#fffafd}
+.final-heart{font-size:65px;color:#d56e91;animation:pulse 1.7s infinite}
+.final h2{font-family:'Great Vibes';font-size:65px;font-weight:400;color:#b7557c;margin:10px 0}
+.final p{color:#9b7282}
+@keyframes pulse{50%{transform:scale(1.16)}}
+
+footer{text-align:center;padding:25px;background:#fff;color:#b88799;font-size:12px}
+
+/* music */
+.music{
+ position:fixed;right:20px;bottom:20px;z-index:50;width:48px;height:48px;border:0;border-radius:50%;
+ background:#cf6e93;color:white;cursor:pointer;box-shadow:0 10px 25px #b24e722e;
+ font-size:19px;transition:.3s;display:none;
+}
+.music.show{display:block}
+.music.playing{animation:musicPulse 1.4s infinite}
+@keyframes musicPulse{50%{box-shadow:0 0 0 10px #cf6e9315,0 10px 25px #b24e7230}}
+
+/* confetti */
+.confetti{position:fixed;z-index:200;width:8px;height:12px;pointer-events:none;animation:fall 1.8s ease-out forwards}
+@keyframes fall{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0}}
+
+@media(max-width:650px){
+ .envelope-wrap{width:255px;height:167px}
+ .letter{width:210px;height:130px;left:22px}
+ .flap{height:98px}.seal{top:88px}
+ .gallery{grid-template-columns:1fr 1fr}
+ .letter-card{padding:29px 24px}
+ .section{padding:80px 17px}
+ .item{grid-template-columns:58px 1fr;gap:12px}.icon{width:58px;height:58px;border-radius:18px}
+ .item article{padding:18px}.item h3{font-size:24px}
+}
+</style>
+</head>
+
+<body>
+<div class="floating" id="floating"></div>
+
+<!-- OPENING -->
+<section class="opening" id="opening">
+ <div class="opening-inner">
+   <div class="mini">15 November · a little surprise for you</div>
+   <div class="greeting">Happy Birthday<br>Sayang!</div>
+   <div class="date">15 · 11</div>
+
+   <div class="envelope-wrap" id="envelope" onclick="openLetter()">
+     <div class="envelope"></div>
+     <div class="letter"><span>for you, ♡</span></div>
+     <div class="flap"></div>
+     <div class="seal">♡</div>
+   </div>
+
+   <div class="tap">tap the envelope <b>to open</b></div>
+   <div class="music-hint">♪ your song will start after you open it</div>
+ </div>
+</section>
+
+<audio id="music" loop>
+ <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="music" id="musicButton" onclick="toggleMusic()">♫</button>
+
+<main class="main" id="main">
+ <section class="hero">
+   <div class="hero-content">
+     <div class="small">a whole page dedicated to you</div>
+     <h1>Happy Birthday</h1>
+     <h2>to my favorite person in the whole world ♡</h2>
+     <div class="hero-date">15 NOVEMBER</div>
+     <div class="scroll">scroll slowly</div>
+   </div>
+ </section>
+
+ <section class="section">
+   <div class="container">
+    <div class="center">
+      <div class="kicker">a letter for you</div>
+      <div class="title">Dear, My Love</div>
+      <p class="sub">Some things are easier to write than to say out loud.</p>
+    </div>
+    <div class="letter-card">
+      <p>Happy birthday, sayang. ♡</p>
+      <p>Hari ini adalah hari yang spesial karena di tanggal 15 November, seseorang yang sangat berarti buat aku lahir ke dunia. Dan entah gimana caranya, semesta akhirnya mempertemukan kamu sama aku. yapp walaupun dari game, HEBATT.</p>
+      <p>Terima kasih karena sudah hadir di hidup aku. Terima kasih untuk semua hal kecil yang mungkin menurut kamu biasa aja, tapi buat aku punya tempat sendiri di hati.</p>
+      <p>Di umur kamu yang baru, aku berharap kamu selalu sehat, bahagia, dimudahkan dalam semua urusan, dan pelan-pelan mendapatkan semua hal yang kamu impikan.</p>
+      <p>Kalau nanti ada hari yang berat, jangan lupa kalau kamu nggak harus melewatinya sendirian. Aku mungkin nggak selalu punya jawaban, tapi aku akan selalu berusaha ada di samping kamu. ♡</p>
+      <div class="sign">with all my love,<br>your girl ♡</div>
+    </div>
+   </div>
+ </section>
+
+ <section class="section memories">
+  <div class="container">
+   <div class="center">
+    <div class="kicker">little pieces of us</div>
+    <div class="title">GANTENGNYAA AKUU ♡</div>
+   </div>
+   <div class="gallery">
+    <img src="img/img2 (1).jpeg" alt="img2" width="300">
+    <img src="img/img2 (2).jpeg" alt="img2" width="300">
+    <img src="img/img2 (3).jpeg" alt="img2" width="300">
+   </div>
+  </div>
+ </section>
+
+ <section class="section">
+  <div class="container">
+   <div class="center">
+    <div class="kicker">from then to now</div>
+    <div class="title">Our Little Story</div>
+   </div>
+   <div class="timeline">
+    <div class="item"><div class="icon">♡</div><article><h3>When we met</h3><p>sometimes aku suka mikir, lucu yaa gimana awalnya kita cuma dua orang yang ketemu tanpa ekspektasi apa-apa, tanpa pernah nyangka kalau suatu hari kita bakal sedeket ini. dulu aku ga pernah kepikiran kalau orang yang awalnya cuma aku kenal, ternyata bakal jadi orang yang sekarang punya tempat spesial di hati aku, orang yang aku sayang, dan orang yang sekarang bisa aku panggil pacar eaa.
+      when we first met, i never expected that you would mean this much to me. aku ga nyangka kalau pertemuan sederhana itu ternyata jadi awal dari banyak hal yang berarti buat aku. dari yang awalnya cuma saling kenal, sampai akhirnya kita punya cerita, punya hal-hal kecil yang cuma kita berdua yang ngerti. and now, here we are, celebrating your birthday together, with you being someone i never knew i would love this much.
+    </p></article></div>
+    <div class="item"><div class="icon">✦</div><article><h3>A moment I'll keep</h3><p>makasih yaa udah hadir di hidup aku, makasih karena ternyata pertemuan kita bisa membawa aku sampai di titik ini, titik di mana aku bisa sayang sama kamu. aku ga tau ke depannya kita bakal ngelewatin cerita seperti apa, tapi aku berharap kita masih punya banyak waktu buat bikin kenangan baru, saling kenal lebih jauh, dan terus belajar memahami satu sama lain.</p></article></div>
+    <div class="item"><div class="icon">∞</div><article><h3>And now</h3><p>Terima kasih sudah sampai sejauh ini. di hari ulang tahun kamu ini, aku berharap semoga semua hal baik selalu nemuin kamu. semoga kamu selalu diberi kesehatan, kebahagiaan, dan kemudahan buat semua hal yang lagi kamu perjuangin. aku harap kamu bisa terus tumbuh jadi versi terbaik dari diri kamu sendiri, bisa mencapai hal-hal yang kamu impikan, dan selalu punya alasan buat tersenyum, bahkan di hari-hari yang berat sekalipun.</p></article></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="section wishes">
+  <div class="container">
+   <div class="kicker">one little wish</div>
+   <div class="title">My Wish For You</div>
+   <p class="sub">for your new chapter ♡</p>
+   <div class="wish"><p>“Semoga hidup selalu punya alasan untuk membuatmu tersenyum, dan semoga aku masih boleh jadi salah satu alasan itu.”</p></div>
+  </div>
+ </section>
+
+ <section class="final">
+   <div class="final-heart">♡</div>
+   <h2>Happy Birthday, Love.</h2>
+   <p>my favorite person. i'm so glad that we met, and even happier that you became my person. semoga di antara banyak hal yang berubah dalam hidup kamu, kamu selalu punya hal-hal baik yang bisa kamu genggam, dan semoga aku masih bisa jadi salah satu bagian kecil yang bikin hari-hari kamu terasa lebih baik. i love you, more than i ever expected i would. 🤍p>
+ </section>
+ <footer>made with too much love ♡ · 15 November</footer>
+</main>
+
+<script>
+const opening=document.getElementById('opening');
+const main=document.getElementById('main');
+const music=document.getElementById('music');
+const musicButton=document.getElementById('musicButton');
+
+function makeHearts(){
+ const box=document.getElementById('floating');
+ for(let i=0;i<18;i++){
+   const h=document.createElement('span');
+   h.className='heart';
+   h.innerHTML=Math.random()>.35?'♡':'✦';
+   h.style.left=(Math.random()*100)+'%';
+   h.style.fontSize=(10+Math.random()*18)+'px';
+   h.style.animationDuration=(8+Math.random()*10)+'s';
+   h.style.animationDelay=(Math.random()*10)+'s';
+   box.appendChild(h);
+ }
+}
+makeHearts();
+
+function confetti(){
+ const symbols=['♡','✦','♥','·'];
+ for(let i=0;i<45;i++){
+   const c=document.createElement('span');
+   c.className='confetti';
+   c.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+   c.style.left='50%'; c.style.top='43%';
+   c.style.color=['#d96e93','#f2a9c0','#c05b80','#f7c7d8'][Math.floor(Math.random()*4)];
+   c.style.fontSize=(12+Math.random()*18)+'px';
+   c.style.setProperty('--x',(Math.random()*700-350)+'px');
+   c.style.setProperty('--y',(Math.random()*500-100)+'px');
+   c.style.animationDelay=(Math.random()*.25)+'s';
+   document.body.appendChild(c);
+   setTimeout(()=>c.remove(),2300);
+ }
+}
+
+function openLetter(){
+ if(opening.classList.contains('open')) return;
+ opening.classList.add('open');
+ confetti();
+ setTimeout(()=>{
+   opening.classList.add('hide');
+   main.classList.add('show');
+   musicButton.classList.add('show');
+   music.play().then(()=>musicButton.classList.add('playing')).catch(()=>{});
+ },1200);
+}
+
+function toggleMusic(){
+ if(music.paused){
+   music.play(); musicButton.classList.add('playing');
+ }else{
+   music.pause(); musicButton.classList.remove('playing');
+ }
+}
+</script>
+</body>
+</html>
